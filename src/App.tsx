@@ -18,6 +18,7 @@ function App() {
           Learn React
         </a>
       </header>
+      <button data-testid="counter">0</button>
     </div>
   );
 }
