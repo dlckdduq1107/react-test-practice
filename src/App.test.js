@@ -21,3 +21,12 @@ test('온오프 버튼 색 테스트', () => {
   const onOff = screen.getByTestId('on-off-button');
   expect(onOff).toHaveStyle({ backgroundColor: 'blue' });
 });
+
+test('disabled test', () => {
+  render(<App />);
+  const onOff = screen.getByTestId('on-off-button');
+  fireEvent.click(onOff);
+
+  const plusBtn = screen.getByTestId('plus-btn');
+  expect(plusBtn).toBeDisabled();
+});
