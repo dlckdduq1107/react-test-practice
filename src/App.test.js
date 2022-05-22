@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import App from './App';
 
 test('숫자 0으로 시작', () => {
@@ -10,7 +11,7 @@ test('숫자 0으로 시작', () => {
 test('플러스 버튼 클릭시 1증가', () => {
   render(<App />);
   const btn = screen.getByTestId('plus-btn');
-  fireEvent.click(btn);
+  userEvent.click(btn);
 
   const counter = screen.getByTestId('counter');
   expect(counter).toHaveTextContent(1);
@@ -25,7 +26,7 @@ test('온오프 버튼 색 테스트', () => {
 test('disabled test', () => {
   render(<App />);
   const onOff = screen.getByTestId('on-off-button');
-  fireEvent.click(onOff);
+  userEvent.click(onOff);
 
   const plusBtn = screen.getByTestId('plus-btn');
   expect(plusBtn).toBeDisabled();
