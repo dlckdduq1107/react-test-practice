@@ -1,6 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import { findByTestId, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { rest } from 'msw';
 import App from './App';
+import { server } from './mocks/server';
 
 test('숫자 0으로 시작', () => {
   render(<App />);
@@ -37,4 +39,17 @@ test('fetching server', async () => {
 
   const options = await screen.findAllByRole('checkbox');
   expect(options).toBeInTheDocument().toHaveLength(1);
+});
+
+test('server error test', async () => {
+  server.resetHandlers(
+    rest.get('http://localhost:5000/products', (req, res, ctx) => {
+      res(ctx.status(500));
+    })
+  );
+
+  render(<App />);
+
+  const errorBanner = await screen.findByTestId('error-banner');
+  expect(errorBanner).toHaveTextContent('error 발생');
 });
