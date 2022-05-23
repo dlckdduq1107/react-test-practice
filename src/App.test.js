@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from './App';
 
@@ -30,4 +30,11 @@ test('disabled test', () => {
 
   const plusBtn = screen.getByTestId('plus-btn');
   expect(plusBtn).toBeDisabled();
+});
+
+test('fetching server', async () => {
+  render(<App />);
+
+  const options = await screen.findAllByRole('checkbox');
+  expect(options).toBeInTheDocument().toHaveLength(1);
 });
